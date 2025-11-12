@@ -32,6 +32,8 @@
                     <div class="relative group">
     <button class="flex items-center space-x-2 text-gray-700 hover:text-primary transition-colors focus:outline-none">
         <span><?= htmlspecialchars($_SESSION['user']['email']) ?></span>
+        <img src="../../styles/userLogo.webp" class="w-18 h-9" alt="">
+
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
@@ -46,7 +48,7 @@
 </div>
 
                 <?php else: ?>
-                    <a href="/register" class="text-gray-700 hover:text-primary transition-colors">
+                    <a href="/register" class="text-gray-700 hover:text-primary transition-colors"><img src="../../styles/userLogo.webp" class="w-18 h-9" alt="">
                     </a>
                 <?php endif; ?>
             </nav>
