@@ -4,20 +4,6 @@
     <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-white rounded-2xl shadow-sm p-8">
             <h1 class="text-2xl font-bold text-gray-900 mb-6">Mi Perfil</h1>
-
-            <?php if (isset($error)): ?>
-                <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
-                    <?= htmlspecialchars($error) ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if (isset($success)): ?>
-                <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-6">
-                    <?= htmlspecialchars($success) ?>
-                </div>
-            <?php endif; ?>
-
-            <form method="POST" class="space-y-6">
                 <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
                 
                 <div>

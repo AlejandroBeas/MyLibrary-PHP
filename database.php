@@ -1,7 +1,7 @@
 <?php
 
-function connectSqlite($path = null) {
-    $path = $path ?? DB_SQLITE_PATH;
+function connectSqlite() {
+    $path = DB_SQLITE_PATH;
     
     // Crear directorio si no existe
     $dir = dirname($path);

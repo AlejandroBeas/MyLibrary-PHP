@@ -1,73 +1,63 @@
 <?php include 'partials/header.view.php'; ?>
 
-<main class="flex-1">
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <!-- Hero Section -->
-        <div class="bg-gradient-to-r from-red-50 to-white rounded-2xl shadow-sm p-8 mb-8">
-            <div class="text-center">
-                <h1 class="text-4xl font-bold text-gray-900 mb-4">
-                    Bienvenido a <span class="text-primary">My Library</span>
-                </h1>
-                <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                    Gestiona tu colección de libros personal de manera fácil y profesional. 
-                    Añade, edita y organiza tus libros favoritos.
-                </p>
-                
-                <?php if ($_SESSION['user']): ?>
-                    <div class="space-x-4">
-                        <a href="/books" class="bg-primary text-white px-8 py-3 rounded-lg hover:bg-red-700 font-semibold text-lg inline-block transition-colors">
-                            Ver Mi Librería
-                        </a>
-                    </div>
-                <?php else: ?>
-                    <div class="space-x-4">
-                        <a href="/register" class="bg-primary text-white px-8 py-3 rounded-lg hover:bg-red-700 font-semibold text-lg inline-block transition-colors">
-                            Comenzar Ahora
-                        </a>
-                        <a href="/login" class="border border-primary text-primary px-8 py-3 rounded-lg hover:bg-red-50 font-semibold text-lg inline-block transition-colors">
-                            Iniciar Sesión
-                        </a>
-                    </div>
-                <?php endif; ?>
+<main class="flex-1 bg-gradient-to-br from-white to-gray-100">
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20 text-center">
+            <h1 class="text-5xl font-extrabold text-gray-900 leading-tight">
+                Bienvenido a <span class="text-primary"><?= APP_NAME ?></span>
+            </h1>
+            <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
+                Tu espacio digital para explorar, aprender y crecer. Descubre miles de recursos al alcance de un clic.
+            </p>
+            <div class="mt-8 flex justify-center space-x-4">
+                <a href="/register" class="bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-blue-800 transition">
+                    Crear Cuenta
+                </a>
+                <a href="/books" class="px-6 py-3 border border-primary text-primary rounded-md font-medium hover:bg-primary hover:text-white transition">
+                    Explorar Librería
+                </a>
             </div>
         </div>
+    </section>
 
-        <!-- Últimos libros -->
-        <div class="bg-white rounded-2xl shadow-sm p-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Últimos Libros Añadidos</h2>
-            
-            <?php if (empty($books)): ?>
-                <div class="text-center py-12">
-                    <div class="text-gray-400 text-6xl mb-4">📚</div>
-                    <p class="text-gray-500 text-lg">No hay libros en la biblioteca todavía.</p>
-                    <?php if ($_SESSION['user']): ?>
-                        <a href="/add-book" class="inline-block mt-4 text-primary hover:text-red-700 font-medium">
-                            ¡Sé el primero en añadir un libro!
-                        </a>
-                    <?php endif; ?>
+    <!-- Features Section -->
+    <section class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800">¿Por qué elegir <?= APP_NAME ?>?</h2>
+                <p class="mt-4 text-gray-600">Una plataforma pensada para facilitar tu acceso al conocimiento.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm text-center">
+                    <div class="text-primary text-4xl mb-4">📚</div>
+                    <h3 class="text-xl font-semibold text-gray-800">Amplia colección</h3>
+                    <p class="mt-2 text-gray-600">Miles de libros, artículos y recursos digitales disponibles para ti.</p>
                 </div>
-            <?php else: ?>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <?php foreach (array_slice($books, 0, 6) as $book): ?>
-                        <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
-                            <h3 class="font-semibold text-lg text-gray-900 mb-2"><?= htmlspecialchars($book['title']) ?></h3>
-                            <p class="text-gray-600 mb-1"><strong>Autor:</strong> <?= htmlspecialchars($book['author']) ?></p>
-                            <p class="text-gray-600 mb-1"><strong>Año:</strong> <?= htmlspecialchars($book['year']) ?></p>
-                            <p class="text-gray-600 text-sm"><strong>Añadido:</strong> <?= formatDate($book['created_at']) ?></p>
-                        </div>
-                    <?php endforeach; ?>
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm text-center">
+                    <div class="text-primary text-4xl mb-4">⚡</div>
+                    <h3 class="text-xl font-semibold text-gray-800">Acceso rápido</h3>
+                    <p class="mt-2 text-gray-600">Encuentra lo que necesitas en segundos con nuestro buscador inteligente.</p>
                 </div>
-                
-                <?php if (count($books) > 6): ?>
-                    <div class="text-center mt-6">
-                        <a href="/books" class="text-primary hover:text-red-700 font-semibold">
-                            Ver todos los libros →
-                        </a>
-                    </div>
-                <?php endif; ?>
-            <?php endif; ?>
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm text-center">
+                    <div class="text-primary text-4xl mb-4">🔒</div>
+                    <h3 class="text-xl font-semibold text-gray-800">Seguridad y privacidad</h3>
+                    <p class="mt-2 text-gray-600">Tu información está protegida con los más altos estándares de seguridad.</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="bg-primary text-white py-16">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold">¿Listo para comenzar?</h2>
+            <p class="mt-4 text-lg">Únete hoy y forma parte de una comunidad que valora el conocimiento.</p>
+            <a href="/register" class="mt-6 inline-block bg-white text-primary px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition">
+                Crear Cuenta Gratis
+            </a>
+        </div>
+    </section>
 </main>
 
 <?php include 'partials/footer.view.php'; ?>
