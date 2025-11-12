@@ -70,21 +70,21 @@ function authenticate(PDO $db, string $email, string $password): bool {
     return false;
 }
 
-function registerUser(PDO $db, string $email, string $password): bool {
-    // Verificar si el usuario ya existe
+function registerUser(PDO $db, string $email, string $password, string $name, string $age, string $likes): bool {
+
     $checkSql = "SELECT id FROM users WHERE email = ?";
     $checkStmt = $db->prepare($checkSql);
     $checkStmt->execute([$email]);
     
     if ($checkStmt->fetch()) {
-        return false; // Usuario ya existe
+        return false; 
     }
     
-    $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
+    $sql = "INSERT INTO users (email, password, name, EtiquetaEdad, Preferencias) VALUES (?, ?, ?, ?, ?)";
     $stmt = $db->prepare($sql);
     
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    return $stmt->execute([$email, $hashedPassword]);
+    return $stmt->execute([$email, $hashedPassword, $name, $age, $likes]);
 }
 
 function requireAuth() {

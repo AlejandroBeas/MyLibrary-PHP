@@ -12,6 +12,17 @@
 
         <form method="POST" action="/register" class="space-y-6">
             <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+<?php if (!empty($error)): ?>
+    <div style="color: red; font-weight: bold;">
+        <?= htmlspecialchars($error) ?>
+    </div>
+<?php endif; ?>
+
+<?php if (!empty($success)): ?>
+    <div style="color: green; font-weight: bold;">
+        <?= htmlspecialchars($success) ?>
+    </div>
+<?php endif; ?>
 
             <div id="name">
                 <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
