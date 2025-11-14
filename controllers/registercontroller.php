@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . '/../models/functions.php';
+$genres = readGenres($db);
+file_put_contents(__DIR__ . '/../data/Genres.json', json_encode($genres, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 

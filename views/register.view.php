@@ -1,4 +1,4 @@
-<?php include 'partials/header.view.php'; ?>
+<?php include 'partials/header.view.php';?>
 
 <main class="flex-1 bg-gradient-to-br from-gray-100 to-white flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
     <div class="max-w-lg w-full bg-white shadow-xl rounded-xl p-10 space-y-8">

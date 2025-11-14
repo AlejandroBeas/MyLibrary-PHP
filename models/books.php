@@ -11,9 +11,9 @@ function getBook(PDO $db, int $id): ?array {
     return $stmt->fetch() ?: null;
 }
 
-function addBook(PDO $db, string $title, string $author, int $year): bool {
-    $stmt = $db->prepare("INSERT INTO books (title, author, publish_date) VALUES (?, ?, ?)");
-    return $stmt->execute([$title, $author, $year]);
+function addBook(PDO $db, string $title, string $author, int $year, string $Etiqueta, string $synopsis, string $genres): bool {
+    $stmt = $db->prepare("INSERT INTO books (title, author, publish_date, synopsis, Etiqueta, genres) VALUES (?, ?, ?, ?, ?, ?)");
+    return $stmt->execute([$title, $author, $year, $synopsis, $Etiqueta, $genres]);
 }
 
 function updateBook(PDO $db, int $id, string $title, string $author, int $year): bool {

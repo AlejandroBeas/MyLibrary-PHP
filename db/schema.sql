@@ -25,12 +25,3 @@ CREATE TABLE IF NOT EXISTS comments (
     FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
-
--- Insertar usuario de prueba (password: 'password')
-INSERT OR IGNORE INTO users (email, password) VALUES ('admin@library.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
-
--- Insertar algunos libros de ejemplo
-INSERT OR IGNORE INTO books (title, author, year) VALUES 
-('Cien años de soledad', 'Gabriel García Márquez', 1967),
-('1984', 'George Orwell', 1949),
-('El Quijote', 'Miguel de Cervantes', 1605);
