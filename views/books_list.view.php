@@ -4,7 +4,7 @@
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 py-6 sm:px-0">
             <div class="flex justify-between items-center mb-6">
-                <h1 class="text-3xl font-bold text-gray-900">Mi Librería</h1>
+                <h1 class="text-3xl font-bold text-gray-900">Librería</h1>
                 
                 <?php if ($_SESSION['user']): ?>
                     <a href="/add-book" class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-red-700 font-semibold flex items-center">
