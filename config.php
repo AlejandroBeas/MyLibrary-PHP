@@ -14,7 +14,8 @@ define('APP_VERSION', '1.0');
 
 $routes = [
     'home', 'books', 'login', 'logout', 'register', 'auth',
-    'add-book', 'edit-book', 'delete-book', 'save-book', 'book_form'
+    'add-book', 'edit-book', 'delete-book', 'save-book', 'book_form',
+    'view-book','add-comment', 'edit-comment', 'delete-comment'
 ];
 
 if (!isset($_SESSION['user'])) {

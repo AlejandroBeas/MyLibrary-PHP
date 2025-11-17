@@ -1,3 +1,4 @@
+
 <?php include 'partials/header.view.php';?>
 
 <main class="flex-1 bg-gradient-to-br from-gray-50 to-gray-100 py-12">
@@ -59,21 +60,24 @@
                 <!-- Género -->
                 <div>
                     <label for="genre" class="block text-sm font-medium text-gray-700 mb-1">Género</label>
-                        <select id="genre" name="genre" required multiple
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition">
-                            <option value="" disabled <?= !isset($book) ? 'selected' : '' ?>>Selecciona un género</option>
-                            <?php foreach ($genres as $genre): ?>
-                                <option value="<?= htmlspecialchars($genre["genre"]) ?>"
-                                    <?= isset($book) && $book['genre'] == $genre['genre'] ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($genre['genre']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                    <select id="genre" name="genre[]" required multiple
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition">
+                        <?php
+                        // Convertir géneros guardados en array para preseleccionar
+                        $selectedGenres = isset($book) && $book['genre'] ? explode('; ', trim($book['genre'])) : [];
+                        ?>
+                        <?php foreach ($genres as $genre): ?>
+                            <option value="<?= htmlspecialchars($genre["genre"]) ?>"
+                                <?= in_array($genre['genre'], $selectedGenres) ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($genre['genre']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
 
                 <!-- Sinopsis -->
                 <div>
-                    <label for="synopsis" class="block text-sm font-medium text-gray-700 mb-1">Sinopsis</label>
+                    <label for="" class="block text-sm font-medium text-gray-700 mb-1">Sinopsis</label>
                     <textarea id="synopsis" name="synopsis" rows="4" required
                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition resize-none"
                               placeholder="Escribe una breve sinopsis..."><?= isset($book) ? htmlspecialchars($book['synopsis']) : '' ?></textarea>

@@ -72,23 +72,26 @@
                                 <?php foreach ($books as $book): ?>
                                     <tr class="hover:bg-gray-50">
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm font-medium text-gray-900"><?= htmlspecialchars($book['title']) ?></div>
+                                            <a href="/view-book/<?= $book['id'] ?>"><div class="text-sm font-medium text-gray-900"><?= htmlspecialchars($book['title']) ?> </div></a>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900"><?= htmlspecialchars($book['author']) ?></div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900"><?= htmlspecialchars($book['year']) ?></div>
+                                            <div class="text-sm text-gray-900"><?= htmlspecialchars($book['publish_date']) ?></div>
+                                            
                                         </td>
                                         <?php if ($_SESSION['user']): ?>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                                <a href="/edit-book/<?= $book['id'] ?>" class="text-blue-600 hover:text-blue-900 mr-4">Editar</a>
-                                                <form action="/delete-book/<?= $book['id'] ?>" method="POST" class="inline" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este libro?')">
-                                                    <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
-                                                    <button type="submit" class="text-red-600 hover:text-red-900">Eliminar</button>
-                                                </form>
-                                            </td>
-                                        <?php endif; ?>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <a href="/view-book/<?= $book['id'] ?>" class="text-green-600 hover:text-green-900 mr-4">Ver Detalles</a>
+                                            <a href="/edit-book/<?= $book['id'] ?>" class="text-blue-600 hover:text-blue-900 mr-4">Editar</a>
+                                            <form action="/delete-book/<?= $book['id'] ?>" method="POST" class="inline" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este libro?')">
+                                                <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                                                <button type="submit" class="text-red-600 hover:text-red-900">Eliminar</button>
+                                            </form>
+                                        </td>
+                                    <?php endif; ?>
+                                    
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
