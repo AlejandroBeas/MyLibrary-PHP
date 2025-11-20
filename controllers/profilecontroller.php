@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && verifyToken()) {
     $new_password = filter_input(INPUT_POST, 'new_password');
     $confirm_password = filter_input(INPUT_POST, 'confirm_password');
 
-    // 🔹 Actualizar nombre
+    //nombre
     if ($name && $name !== $user['name']) {
         $stmt = $db->prepare("UPDATE users SET name = ? WHERE id = ?");
         if ($stmt->execute([$name, $user['id']])) {
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && verifyToken()) {
         }
     }
 
-    // 🔹 Actualizar email
+    //email
     if ($email && $email !== $user['email']) {
         $stmt = $db->prepare("SELECT id FROM users WHERE email = ? AND id != ?");
         $stmt->execute([$email, $user['id']]);
@@ -40,12 +40,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && verifyToken()) {
             }
         }
     }
+    $likesStr = '';
+    foreach ($preferencias as $like){
+        $likesStr .= $like . ";";
+    }
+    //preferencias
+    if ($likesStr && $likesStr !== $user['Preferencias']) {
 
-    // 🔹 Actualizar gustos / preferencias
-    if ($preferencias && $preferencias !== $user['Preferencias']) {
+        $likesStr = str_replace([",", "\n", "\r"], ";", $likesStr);
+        $likesStr = preg_replace('/;+/', ';', $likesStr);
+        $likesStr = trim($likesStr, "; ");
+
         $stmt = $db->prepare("UPDATE users SET Preferencias = ? WHERE id = ?");
-        if ($stmt->execute([$preferencias, $user['id']])) {
-            $_SESSION['user']['Preferencias'] = $preferencias;
+        if ($stmt->execute([$likesStr, $user['id']])) {
+            $_SESSION['user']['Preferencias'] = $likesStr;
             $success = $success ? $success . " y gustos actualizados" : "Gustos actualizados correctamente";
         } else {
             $error = "Error al actualizar los gustos";

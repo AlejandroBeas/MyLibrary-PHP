@@ -30,11 +30,18 @@
                     <div class="text-sm text-gray-500 font-medium mb-1">Categoría de Edad</div>
                     <div class="text-lg"><?= htmlspecialchars($user['EtiquetaEdad']) ?></div>
                 </div>
+                <?php
+                $preferencias = $user['Preferencias'] ?? '';
+                $preferenciasArray = $preferencias ? explode(';', $preferencias) : [];
+                ?>
 
                 <div class="bg-gray-50 rounded-xl p-4 sm:col-span-2">
                     <div class="text-sm text-gray-500 font-medium mb-1">Gustos</div>
-                    <div class="text-lg"><?= htmlspecialchars(implode(", ", $user['Preferencias'])) ?></div>
+                    <div class="text-lg">
+                        <?= $preferenciasArray ? htmlspecialchars(implode(", ", $preferenciasArray)) : "Sin gustos registrados" ?>
+                    </div>
                 </div>
+
             </div>
 
             <div class="flex flex-col sm:flex-row gap-4 mt-10">
