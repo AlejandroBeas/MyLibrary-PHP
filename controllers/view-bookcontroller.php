@@ -18,6 +18,10 @@ if (!$book) {
     exit;
 }
 
+$averageData = getAverageRating($db, $book['id']);
+$averageRating = $averageData['avg_rating'];
+$totalReviews = $averageData['total_reviews'];
+
 // Cargar comentarios
 $comments = getCommentsByBookId($db, $id);
 

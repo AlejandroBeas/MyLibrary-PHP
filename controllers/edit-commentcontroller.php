@@ -4,7 +4,8 @@ requireAuth();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && verifyToken()) {
     $commentId = filter_input(INPUT_POST, 'comment_id', FILTER_VALIDATE_INT);
     $comment = trim(filter_input(INPUT_POST, 'comment'));
-    $bookId = filter_input(INPUT_POST, 'book_id', FILTER_VALIDATE_INT);  // <-- Mueve esto aquí, fuera del if
+    $bookId = filter_input(INPUT_POST, 'book_id', FILTER_VALIDATE_INT);
+    $rating = $_POST['rating'] ?? 0;  // <-- Mueve esto aquí, fuera del if
     
     if ($commentId && $comment && $bookId) {  // <-- Agrega $bookId a la validación
         require_once __DIR__ . '/../database.php';
@@ -12,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && verifyToken()) {
         require_once __DIR__ . '/../models/functions.php';
         
         
-        if (updateComment($db, $commentId, $_SESSION['user']['id'], $comment)) {
+        if (updateComment($db, $commentId, $_SESSION['user']['id'], $comment, $rating)) {
             header('Location: /view-book/' . $bookId . '?success=comment_edited');
         } else {
             header('Location: /view-book/' . $bookId . '?error=comment_edit');

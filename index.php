@@ -1,4 +1,4 @@
-<?php
+    <?php
 require 'config.php';
 require 'database.php';
 require 'helper.php';
@@ -20,15 +20,12 @@ if ($route === '') {
     $route = 'home';
 }
 
-// Manejo de parámetros
 if (count($segments) > 1) {
     $_GET['params'] = array_slice($segments, 1);
 }
 
-// Determinar el controlador
 $controller = $route . 'controller';
 
-// Cargar el controlador
 $controllerPath = "controllers/{$controller}.php";
 if (file_exists($controllerPath)) {
     require $controllerPath;

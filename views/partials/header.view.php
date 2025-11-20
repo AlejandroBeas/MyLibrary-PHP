@@ -48,9 +48,9 @@
 </div>
 
                 <?php else: ?>
-                    <a href="/register" class="text-gray-700 hover:text-primary transition-colors"><img src="../../styles/userLogo.webp" class="w-18 h-9" alt="">
-                    </a>
-                <?php endif; ?>
+                    <a href="/login" class="text-gray-799 hover:text-primary transition-colors">Iniciar sessió</a>
+                    <a href="/register" class="text-gray-700 hover:text-primary transition-colors">Registrar-se</a>
+                    <?php endif; ?>
             </nav>
         </div>
     </div>

@@ -3,19 +3,25 @@
 
 function readGenres($db) {
     try {
-        $stmt = $db->query("SELECT genre FROM genres");  // Asume tabla 'genres' con columna 'genre'
+        $stmt = $db->query("SELECT genre FROM genres");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         error_log("Error reading genres: " . $e->getMessage());
         return [];
     }
 }
-// Obtener comentarios de un libro
+function getAverageRating($db, $bookId) {
+    $stmt = $db->prepare("SELECT AVG(rating) as avg_rating, COUNT(*) as total_reviews 
+                          FROM comments 
+                          WHERE book_id = ?");
+    $stmt->execute([$bookId]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 function getCommentsByBookId($db, $bookId) {
     try {
-        // Quita el JOIN para probar
         $stmt = $db->prepare("
-            SELECT c.id, c.comment, c.created_at, c.user_id, u.name AS username
+            SELECT c.id, c.comment, c.created_at, c.rating, c.user_id, u.name AS username
             FROM comments c
             JOIN users u ON c.user_id = u.id
             WHERE c.book_id = ?
@@ -29,29 +35,26 @@ function getCommentsByBookId($db, $bookId) {
     }
 }
 
-// Agregar comentario
-function addComment($db, $bookId, $userId, $comment) {
+function addComment($db, $bookId, $userId, $comment, $rating) {
     try {
-        $stmt = $db->prepare("INSERT INTO comments (book_id, user_id, comment) VALUES (?, ?, ?)");
-        return $stmt->execute([$bookId, $userId, $comment]);
+        $stmt = $db->prepare("INSERT INTO comments (book_id, user_id, comment, rating) VALUES (?, ?, ?, ?)");
+        return $stmt->execute([$bookId, $userId, $comment, $rating]);
     } catch (PDOException $e) {
         error_log("Error adding comment: " . $e->getMessage());
         return false;
     }
 }
 
-// Editar comentario (solo si es del usuario)
-function updateComment($db, $commentId, $userId, $comment) {
+function updateComment($db, $commentId, $userId, $comment, $rating) {
     try {
-        $stmt = $db->prepare("UPDATE comments SET comment = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ? AND user_id = ?");
-        return $stmt->execute([$comment, $commentId, $userId]);
+        $stmt = $db->prepare("UPDATE comments SET comment = ?, rating = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ? AND user_id = ?");
+        return $stmt->execute([$comment, $rating, $commentId, $userId]);
     } catch (PDOException $e) {
         error_log("Error updating comment: " . $e->getMessage());
         return false;
     }
 }
 
-// Eliminar comentario (solo si es del usuario)
 function deleteComment($db, $commentId, $userId) {
     try {
         $stmt = $db->prepare("DELETE FROM comments WHERE id = ? AND user_id = ?");

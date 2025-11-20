@@ -33,12 +33,12 @@
 
                 <div class="bg-gray-50 rounded-xl p-4 sm:col-span-2">
                     <div class="text-sm text-gray-500 font-medium mb-1">Gustos</div>
-                    <div class="text-lg"><?= htmlspecialchars($user['Preferencias']) ?></div>
+                    <div class="text-lg"><?= htmlspecialchars(implode(", ", $user['Preferencias'])) ?></div>
                 </div>
             </div>
 
             <div class="flex flex-col sm:flex-row gap-4 mt-10">
-                <a href="/profile/edit"
+                <a href="/profile-edit"
                    class="flex-1 bg-blue-600 text-white py-3 px-6 rounded-xl text-center font-semibold hover:bg-blue-700 transition">
                     ✏️ Editar Perfil
                 </a>
